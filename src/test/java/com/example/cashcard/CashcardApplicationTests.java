@@ -1,0 +1,30 @@
+package com.example.cashcard;
+
+import com.jayway.jsonpath.DocumentContext;
+import com.jayway.jsonpath.JsonPath;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+
+import static org.assertj.core.api.Assertions.assertThat;
+
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+class CashCardApplicationTests {
+	@Autowired
+	TestRestTemplate restTemplate;
+
+	@Test
+	void shouldReturnACashCardWhenDataIsSaved() {
+		//http://localhost:JakisPort/cashcards/99
+		//onet.pl:8080/JakisPort
+		ResponseEntity<String> response = restTemplate.getForEntity("/cashcards/99", String.class);
+
+		//String - to jest sama klasa
+		//String.class - typ klasy
+
+		assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
+	}
+}
